@@ -1,3 +1,4 @@
+import "pixi.js/unsafe-eval";
 import { useEffect, useRef, useState } from "react";
 import { Application, Container, Graphics } from "pixi.js";
 import type { Parcel } from "../../../packages/contracts/src/index";
