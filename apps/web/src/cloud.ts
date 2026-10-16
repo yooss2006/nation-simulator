@@ -1,8 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { compressSnapshot, expandSnapshot } from "./cloud-codec";
-const url = import.meta.env.VITE_SUPABASE_URL,
-  key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-export const auth = url && key ? createClient(url, key) : null;
+// Static deployment: no authentication or external API clients are initialized.
+export const auth: SupabaseClient | null = null;
 export const apiUrl = import.meta.env.VITE_API_URL || "/api";
 export async function cloudRequest(
   path: string,

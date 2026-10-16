@@ -47,3 +47,9 @@
 - 단위/통합 테스트 22개, 브라우저 E2E 1개, TypeScript 및 웹 빌드, 포맷 검사, Workers 배포 dry-run 통과.
 - 현재 실행 환경에서 Wrangler 로컬 서버는 `uv_interface_addresses` 시스템 오류로 시작하지 못했습니다. 실제 workerd 요청 처리 및 배포 환경의 무료 CPU 제한은 아직 검증하지 못했습니다.
 - Supabase 조직은 확인했지만 프로젝트는 아직 없으며, Cloudflare 계정 인증과 실제 리소스 연결/배포는 완료되지 않았습니다.
+
+### 사용량 과금 방지 모드 (2026-10-16)
+
+사용자 요구에 따라 실제 배포 대상을 정적 파일 전용으로 변경했습니다. 온라인 저장 API 코드는 참고용으로 보존하되 배포하지 않습니다. 브라우저 Supabase 클라이언트 초기화도 제거했습니다. Supabase 프로젝트 `dhpxzwgkbkkvjiisnkbc`에 테이블 2개와 함수 2개를 적용하고 RLS/브라우저 권한 차단을 확인했습니다. RLS 정책 없음 안내는 서버 전용·기본 거부 설계상 의도된 상태입니다. R2/Hyperdrive는 생성하지 않았습니다.
+
+정적 배포 완료: https://nation-simulator.dream-montage-web.workers.dev/ . Cloudflare 응답에서 `has_assets=true`, `has_modules=false`, `bindings=[]` 확인. 단위/통합 테스트 22개 및 브라우저 E2E 1개 통과, 실제 시작 화면 로딩 확인.
