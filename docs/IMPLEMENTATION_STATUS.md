@@ -35,3 +35,15 @@
 5. 기획 출시 게이트: 12개월 수동 QA, 100년 회귀, 대규모 성능 측정, 보안/접근성/튜토리얼
 
 현재 빌드는 공개 서비스로 배포하지 않습니다. 공개 저장소의 소스 공개와 게임 첫 공개/출시는 별개이며, 출시 기준을 낮추지 않았습니다.
+
+## Cloudflare 전환
+
+- Workers 네이티브 API / Hyperdrive / R2, Google OAuth 화면, 브라우저 gzip와 크기 제한 구현
+- PostgreSQL 슬롯/일일 횟수 제한 및 revision CAS, 현재/직전 버전 보관과 고아 객체 정리 구현
+- 실제 계정 배포·Google OAuth 설정·기기간 복원·CPU 10ms 검증은 계정 연결 후 수행해야 함
+
+### Cloudflare 준비 검증 (2026-10-16)
+
+- 단위/통합 테스트 22개, 브라우저 E2E 1개, TypeScript 및 웹 빌드, 포맷 검사, Workers 배포 dry-run 통과.
+- 현재 실행 환경에서 Wrangler 로컬 서버는 `uv_interface_addresses` 시스템 오류로 시작하지 못했습니다. 실제 workerd 요청 처리 및 배포 환경의 무료 CPU 제한은 아직 검증하지 못했습니다.
+- Supabase 조직은 확인했지만 프로젝트는 아직 없으며, Cloudflare 계정 인증과 실제 리소스 연결/배포는 완료되지 않았습니다.

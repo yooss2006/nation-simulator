@@ -2,3 +2,4 @@ node_modules
 dist
 pnpm-lock.yaml
 apps/api/schema.sql
+apps/worker/schema.sql

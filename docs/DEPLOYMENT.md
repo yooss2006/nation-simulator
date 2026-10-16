@@ -1,3 +1,5 @@
+> 이 문서는 기존 Fastify 서버용 참고입니다. 현재 웹의 온라인 저장은 Cloudflare 바이너리 프로토콜을 사용하므로 [CLOUDFLARE.md](CLOUDFLARE.md)를 따르세요.
+
 # 로컬 실행과 운영 환경
 
 ## 웹

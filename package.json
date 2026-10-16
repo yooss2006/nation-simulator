@@ -11,8 +11,11 @@
     "test:e2e": "playwright test",
     "api": "tsx apps/api/src/index.ts",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write apps packages tests *.ts *.json *.yaml .github/workflows/*.yml",
-    "format:check": "prettier --check apps packages tests *.ts *.json *.yaml .github/workflows/*.yml"
+    "format": "prettier --write apps packages tests *.ts *.json *.yaml .github/workflows/*.yml wrangler.jsonc",
+    "format:check": "prettier --check apps packages tests *.ts *.json *.yaml .github/workflows/*.yml wrangler.jsonc",
+    "cf:dev": "wrangler dev",
+    "cf:check": "wrangler deploy --dry-run --outdir dist/worker",
+    "cf:deploy": "pnpm build && wrangler deploy"
   },
   "dependencies": {
     "@fastify/cors": "11.1.0",
@@ -28,6 +31,8 @@
     "zustand": "5.0.8"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261016.1",
+    "@electric-sql/pglite": "^0.5.10",
     "@playwright/test": "1.56.0",
     "@types/node": "22.18.8",
     "@types/pg": "8.15.5",
@@ -38,6 +43,7 @@
     "tsx": "4.20.6",
     "typescript": "5.9.3",
     "vite": "7.1.9",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "wrangler": "^4.151.1"
   }
 }

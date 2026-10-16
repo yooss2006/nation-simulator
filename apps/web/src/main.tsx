@@ -36,7 +36,6 @@ function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("normal");
   const [ideology, setIdeology] = useState<Ideology>([0, 0, 0]);
   const [tax, setTax] = useState(15);
-  const [email, setEmail] = useState("");
   const [notice, setNotice] = useState("");
   const [cloudId, setCloudId] = useState("");
   const [revision, setRevision] = useState(0);
@@ -634,27 +633,18 @@ function App() {
                 </p>
               ) : (
                 <>
-                  <label>
-                    로그인 이메일
-                    <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="email"
-                    />
-                  </label>
                   <button
                     onClick={() =>
                       run(async () => {
-                        const { error } = await auth!.auth.signInWithOtp({
-                          email,
-                          options: { emailRedirectTo: location.origin },
+                        const { error } = await auth!.auth.signInWithOAuth({
+                          provider: "google",
+                          options: { redirectTo: location.origin },
                         });
                         if (error) throw error;
-                        setNotice("로그인 링크를 이메일로 보냈습니다");
                       })
                     }
                   >
-                    로그인 링크 받기
+                    Google 계정으로 로그인
                   </button>
                   <button
                     onClick={() =>

@@ -36,7 +36,7 @@ pnpm test:e2e        # 실제 Chromium 플레이 / 로컬 저장 복원
 - 48개월 대통령 선거, 과반 미달 결선투표, 연임 또는 대통령직 상실 시 종료
 - PixiJS 아이소메트릭 지도 / 카메라 / 필지 선택, 경제·재정·가구·기업·의회·외교·보고서 화면
 - IndexedDB 자동 저장, JSON 내보내기 / 가져오기, 스키마 검증 및 손상 감지
-- Supabase 이메일 링크 로그인 UI, 인증·소유권 기반 저장 API, PostgreSQL revision 비교 갱신, gzip 객체 저장, 충돌 시 서버 복원 또는 로컬 새 슬롯 저장
+- Supabase Google 로그인 UI, Cloudflare Workers 인증·소유권 저장 API, Hyperdrive/PostgreSQL revision 비교 갱신, 브라우저 gzip/R2 저장, 충돌 시 서버 복원 또는 로컬 새 슬롯 저장
 
 ## 아직 구현하지 않았거나 단순화한 부분
 
@@ -48,7 +48,8 @@ pnpm test:e2e        # 실제 Chromium 플레이 / 로컬 저장 복원
 
 ```text
 apps/web                  React 화면, PixiJS 지도, Web Worker, IndexedDB
-apps/api                  인증 저장 API, PostgreSQL / 객체 저장 어댑터
+apps/worker               Cloudflare API, Hyperdrive / R2, 사용량 제한
+apps/api                  기존 Fastify API (회귀 검증용)
 packages/contracts        엔티티 / 명령 / 워커 메시지
 packages/simulation-core  순수 계산, 회계, 정치, 저장 형식
 packages/world-generator  난이도와 시드 기반 세계 생성
@@ -57,10 +58,15 @@ packages/test-fixtures    반복 가능한 테스트 세계
 ```
 
 원본 PRD / 아키텍처 / 데이터 모델 / 태스크 / 테스트 전략: [docs/design](docs/design)
-온라인 저장 설정: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+Cloudflare 무료 배포 설정: [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md)
+기존 Node 서버 참고: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 ## 저장 원칙
 
 로컬 모드는 계정이나 서버 없이 실행됩니다. 금액은 BigInt이며 저장할 때 `{"$money":"1500"}` 형태로 직렬화됩니다. 동일 엔진/규칙/시드/명령에서 결과를 재현합니다. FNV 상태 해시는 재현 비교용이며 보안 검증용이 아닙니다. 서버 객체에는 별도로 SHA-256을 적용합니다.
 
 현재 자동 저장은 브라우저당 1슬롯입니다. 다른 게임 시작 전 JSON 내보내기로 보존하세요. 서버 저장에는 서비스 설정이 필요하며 이 저장소 생성 작업에서는 외부 인프라를 배포하지 않았습니다. 새로운 스키마 마이그레이션이 준비되기 전까지 다른 버전은 명시적으로 거부합니다.
+
+## Cloudflare 배포 준비
+
+`pnpm cf:check`로 Workers 번들을 검증하고 `pnpm cf:deploy`로 배포합니다. 실제 Cloudflare 로그인과 Supabase/Hyperdrive/R2 설정이 필요합니다. 온라인 저장은 기본 비활성화이며, 활성화 시 최대 10개 허용 계정·계정당 3슬롯·하루 저장 30회 제한을 적용합니다. 전체 상태 검증과 압축은 브라우저에서 수행합니다. 무료 플랜 실제 CPU 한도 충족 여부는 배포 후 측정해야 합니다.
