@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
+import { mockLogin } from "./auth-fixture";
 test("세계 생성, 한 달 진행, 자동 저장 복원", async ({ page }) => {
+  await mockLogin(page);
   await page.goto("/");
   await page.getByRole("button", { name: "국가 창설 · 취임하기" }).click();
   await expect(

@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { compressSnapshot, expandSnapshot } from "./cloud-codec";
-// Static deployment: no authentication or external API clients are initialized.
+// Online saves stay disabled. Login-only Auth is initialized separately in auth.ts.
 export const auth: SupabaseClient | null = null;
 export const apiUrl = import.meta.env.VITE_API_URL || "/api";
 export async function cloudRequest(

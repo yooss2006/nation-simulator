@@ -18,6 +18,7 @@ import { loadLocal, saveLocal } from "./storage";
 import { auth, cloudRequest } from "./cloud";
 import "@fontsource-variable/noto-sans-kr";
 import "./style.css";
+import { AuthGate } from "./AuthGate";
 const cash = (v: bigint) =>
   `${(Number(v) / 100).toLocaleString("ko-KR", { maximumFractionDigits: 0 })} N`;
 const TABS = [
@@ -29,7 +30,8 @@ const TABS = [
   "월간 보고서",
   "저장",
 ];
-function App() {
+function App({ userId }: { userId: string }) {
+  const autosaveId = `user:${userId}:autosave`;
   const { world: w, busy, error, queue, selected, set } = useGame();
   const [tab, setTab] = useState(TABS[0]);
   const [seed, setSeed] = useState(2026);
@@ -68,7 +70,7 @@ function App() {
           error: "",
           queue: [],
         });
-        saveLocal("autosave", {
+        saveLocal(autosaveId, {
           snapshot: data.snapshot,
           hash: data.hash,
           cloudRevision: 0,
@@ -93,7 +95,7 @@ function App() {
     return () => {
       instance.terminate();
     };
-  }, [set]);
+  }, [set, autosaveId]);
   const send = (msg: WorkerRequest) => {
     set({ busy: true, error: "" });
     return new Promise<void>((resolve, reject) => {
@@ -125,7 +127,7 @@ function App() {
   };
   const restore = () =>
     run(async () => {
-      const s = await loadLocal("autosave");
+      const s = await loadLocal(autosaveId);
       if (!s) throw Error("자동 저장이 없습니다");
       await send({
         requestId: ++request.current,
@@ -779,4 +781,6 @@ function App() {
   );
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <AuthGate>{(user) => <App key={user.id} userId={user.id} />}</AuthGate>,
+);

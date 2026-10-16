@@ -445,3 +445,16 @@ select:focus-visible {
     display: none;
   }
 }
+
+.account-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #d8ded8;
+}
+.account-bar span {
+  overflow-wrap: anywhere;
+}
