@@ -458,3 +458,337 @@ select:focus-visible {
 .account-bar span {
   overflow-wrap: anywhere;
 }
+
+/* Task-first layout: readable controls and a persistent monthly action. */
+.layout main {
+  padding-bottom: 130px;
+}
+button,
+input,
+select {
+  min-height: 44px;
+}
+input,
+select {
+  max-width: 100%;
+  min-width: 0;
+}
+.mission {
+  background: linear-gradient(120deg, #28453e, #152e32);
+  border-color: #597360;
+}
+.mission h2 {
+  font-size: 26px;
+  line-height: 1.5;
+}
+.steps {
+  display: flex;
+  gap: 32px;
+  padding-left: 24px;
+  line-height: 1.8;
+}
+.steps small {
+  display: block;
+}
+.goal {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #456155;
+  padding-top: 16px;
+  margin-bottom: 0;
+}
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.action-grid button {
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+  display: grid;
+  gap: 10px;
+}
+.action-grid strong {
+  font-size: 18px;
+}
+.action-grid span {
+  color: #b9cbc4;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.action-grid small {
+  color: #dfc98f;
+}
+.start-guide ol {
+  padding-left: 22px;
+  line-height: 2;
+}
+.month-label {
+  color: #a7bdb7;
+  font-size: 13px;
+}
+.turn-bar {
+  position: fixed;
+  bottom: 0;
+  left: 230px;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 40px calc(14px + env(safe-area-inset-bottom));
+  background: #102126f5;
+  border-top: 1px solid #47615a;
+}
+.turn-bar small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.turn-bar button {
+  margin: 0;
+  flex-shrink: 0;
+}
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #000a;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.turn-dialog {
+  width: min(100%, 520px);
+  max-height: 85dvh;
+  overflow: auto;
+  margin: 0;
+  box-shadow: 0 20px 80px #0008;
+}
+.turn-dialog li {
+  margin: 14px 0;
+}
+.queue > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+section:has(> table) {
+  overflow-x: auto;
+}
+table {
+  min-width: 480px;
+}
+.account-bar {
+  border-color: #29413e;
+  font-size: 12px;
+}
+.account-bar button {
+  padding: 6px 12px;
+}
+@media (max-width: 1000px) {
+  .turn-bar {
+    left: 170px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (max-width: 650px) {
+  .onboarding {
+    padding: 20px 16px;
+    margin: 12px auto;
+  }
+  .onboarding section {
+    padding: 18px;
+  }
+  .onboarding h1 {
+    margin: 16px 0;
+    font-size: 29px;
+  }
+  .onboarding > p {
+    margin-bottom: 24px;
+  }
+  .onboarding label,
+  .row label {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .onboarding input[type="range"] {
+    width: 100%;
+  }
+  .onboarding button {
+    width: 100%;
+    margin: 6px 0;
+  }
+  aside {
+    padding: 14px 16px 8px;
+    border-right: 0;
+  }
+  .brand {
+    font-size: 24px;
+  }
+  .brand span {
+    font-size: 20px;
+  }
+  nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    overflow: visible;
+  }
+  nav button {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 2px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  nav button.active {
+    border: 0;
+    box-shadow: inset 0 -2px #cfb87d;
+  }
+  header {
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .month-label {
+    max-width: 105px;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: right;
+  }
+  .mission h2 {
+    font-size: 22px;
+  }
+  .steps {
+    display: block;
+    padding-left: 22px;
+  }
+  .steps li {
+    margin: 8px 0;
+  }
+  .steps small {
+    display: inline;
+    margin-left: 6px;
+  }
+  .goal {
+    font-size: 13px;
+    gap: 8px;
+  }
+  .metrics strong {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+  .metrics section {
+    margin-bottom: 12px;
+  }
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+  .action-grid button {
+    padding: 16px;
+  }
+  .turn-bar {
+    left: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .turn-bar strong {
+    font-size: 13px;
+  }
+  .turn-bar small {
+    font-size: 10px;
+  }
+  .turn-bar button {
+    padding: 13px 14px;
+    font-size: 14px;
+  }
+  .row {
+    gap: 12px;
+  }
+  .row > * {
+    width: 100%;
+  }
+  .row button {
+    margin: 0;
+  }
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .neighbors {
+    flex-direction: column;
+  }
+  .map {
+    height: 280px;
+  }
+  .account-bar {
+    padding: 4px 16px;
+    gap: 8px;
+  }
+  .account-bar span {
+    max-width: 65%;
+  }
+  label {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  input[type="number"] {
+    width: 120px;
+  }
+  .onboarding input[type="number"] {
+    width: 100%;
+  }
+}
+.turn-dialog {
+  color: #dce7e3;
+  background: #13282d;
+  border: 1px solid #597360;
+  border-radius: 16px;
+  padding: 24px;
+  margin: auto;
+}
+.turn-dialog::backdrop {
+  background: #000b;
+}
+.notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.notice button {
+  float: none;
+  flex-shrink: 0;
+  margin: 0;
+}
+.month-change {
+  border-left: 3px solid #cfb87d;
+  padding-left: 12px;
+}
+@media (max-width: 650px) {
+  .mission p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .steps {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .steps li {
+    flex: 1;
+  }
+  .steps small {
+    display: block;
+    margin: 0;
+    font-size: 10px;
+  }
+}
