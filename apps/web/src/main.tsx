@@ -19,6 +19,7 @@ import { auth, cloudRequest } from "./cloud";
 import "@fontsource-variable/noto-sans-kr";
 import "./style.css";
 import { AuthGate } from "./AuthGate";
+import { ActionPreview } from "./ActionPreview";
 const cash = (v: bigint) =>
   `${(Number(v) / 100).toLocaleString("ko-KR", { maximumFractionDigits: 0 })} N`;
 const TABS = [
@@ -483,6 +484,11 @@ function App({ userId }: { userId: string }) {
               >
                 도로 건설 예약
               </button>
+              <ActionPreview
+                world={w}
+                kind="project"
+                target={selected ?? undefined}
+              />
             </section>
             <section>
               <h3>진행 중인 공공사업</h3>
@@ -520,6 +526,7 @@ function App({ userId }: { userId: string }) {
               >
                 국채 3,000 N 발행 예약
               </button>
+              <ActionPreview world={w} kind="bond" value={300000} />
             </section>
             <section>
               <h3>최근 12개월 GDP</h3>
@@ -635,6 +642,7 @@ function App({ userId }: { userId: string }) {
               >
                 법안 제출 예약
               </button>
+              <ActionPreview world={w} kind="tax" value={tax} />
               {w.laws.map((l) => (
                 <p key={l.id}>
                   {l.tax}% · {l.status} · 찬성 {l.yes} 반대 {l.no}
@@ -666,6 +674,7 @@ function App({ userId }: { userId: string }) {
                   >
                     {n.tradeAgreement ? "협정 체결됨" : "무역협정 예약 · 500 N"}
                   </button>
+                  <ActionPreview world={w} kind="diplomacy" target={n.id} />
                 </article>
               ))}
             </div>
@@ -936,7 +945,15 @@ function App({ userId }: { userId: string }) {
             </p>
             <ul>
               {queue.map((c) => (
-                <li key={c.id}>{commandLabel(c)}</li>
+                <li key={c.id}>
+                  {commandLabel(c)}
+                  <ActionPreview
+                    world={w}
+                    kind={c.kind}
+                    value={c.payload.value}
+                    target={c.payload.target}
+                  />
+                </li>
               ))}
             </ul>
             <button disabled={busy} onClick={() => setReviewTurn(false)}>

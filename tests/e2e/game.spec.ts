@@ -63,6 +63,10 @@ for (const width of [390, 320]) {
       ).toBe(true);
     }
     await page.getByRole("button", { name: /세금 조정/ }).click();
+    await page
+      .getByText("예상 시나리오 · 선택하면 어떻게 될까?", { exact: true })
+      .click();
+    await expect(page.getByText(/임금 100 N당 세후 소득/)).toBeVisible();
     await page.getByRole("button", { name: "법안 제출 예약" }).click();
     await next.click();
     await expect(page.getByRole("dialog")).toContainText(

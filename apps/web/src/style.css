@@ -792,3 +792,43 @@ table {
     font-size: 10px;
   }
 }
+.action-preview {
+  width: 100%;
+  margin-top: 16px;
+  background: #0e2227;
+  border: 1px solid #45615a;
+  border-radius: 10px;
+  padding: 0 16px;
+}
+.row:has(> .action-preview) {
+  flex-wrap: wrap;
+}
+.row > .action-preview {
+  flex-basis: 100%;
+}
+.action-preview summary {
+  min-height: 48px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+.action-preview .preview-note {
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: #9fb7af;
+}
+.action-preview dt {
+  color: #dfc98f;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+.action-preview dd {
+  margin: 6px 0 16px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #c2d2cb;
+}
+.neighbors article {
+  min-width: 0;
+}
